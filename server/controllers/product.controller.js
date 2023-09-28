@@ -1,9 +1,9 @@
 const Product = require("../model/Product.model");
+const errorHelper = require('../utils/error-helper')
 
 // Get All products
 const product_all = async (req, res) => {
   try {
-    console.log('req: ', req.payload);
     const limitValue = req.query.limit;
     const skipValue = limitValue;
     const products = await Product.find({ create: 1 })
@@ -26,7 +26,7 @@ const product_details = async (req, res) => {
     const product = await Product.findById(req.params.productId);
     res.json(product);
   } catch (error) {
-    res.json({ message: error });
+    res.json({ message: "No Record Found!!!" });
   }
 };
 
