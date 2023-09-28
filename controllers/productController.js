@@ -1,8 +1,9 @@
-const Product = require("../model/Product");
+const Product = require("../model/Product.model");
 
 // Get All products
 const product_all = async (req, res) => {
   try {
+    console.log('req: ', req.payload);
     const limitValue = req.query.limit;
     const skipValue = limitValue;
     const products = await Product.find({ create: 1 })
@@ -32,11 +33,12 @@ const product_details = async (req, res) => {
 // Add New product
 const product_create = async (req, res) => {
   const product = new Product({
-    title: req.body.title,
+    brand: req.body.brand,
     create: 1,
     price: req.body.price,
     image: req.body.image,
-    details: req.body.details
+    name: req.body.name,
+    description: req.body.description
   });
 
   try {
@@ -52,15 +54,17 @@ const product_create = async (req, res) => {
 const product_update = async (req, res) => {
   try {
     const product = {
-      title: req.body.title,
+      brand: req.body.brand,
       price: req.body.price,
       image: req.body.image,
-      details: req.body.details
+      name: req.body.name,
+      description: req.body.description
     };
 
     const updatedProduct = await Product.findByIdAndUpdate(
       { _id: req.params.productId },
-      product
+      product,
+      { new: true }
     );
     res.json(updatedProduct);
   } catch (error) {
@@ -81,7 +85,7 @@ const product_delete = async (req, res) => {
 // buy product
 const buy_product = async (req, res) => {
   const product = new Product({
-    title: req.body.title,
+    brand: req.body.brand,
     price: req.body.price,
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -103,9 +107,9 @@ const get_product = async (re, res) => {
   const product = await Product.find({ create: 0 })
 
   // let groupBy = product.reduce((group, element) => {
-  //   let {title} = element;
-  //   group[title] = group[title] ?? [];
-  //   group[title].push(element);
+  //   let {brand} = element;
+  //   group[brand] = group[brand] ?? [];
+  //   group[brand].push(element);
   //   return group;
   // }, {});
   // console.log('groupBy: ', groupBy);

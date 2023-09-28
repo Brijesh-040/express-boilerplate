@@ -8,7 +8,7 @@ dotenv.config();
 
 // connect to DB
 
-mongoose.connect('mongodb://localhost:27017')
+mongoose.connect('mongodb://localhost:27017/expres')
     .then(() => {
         console.log('Connected to MongoDB');
     })
@@ -24,8 +24,9 @@ app.use(express.json())
 app.use(cors());
 
 // route Middlewares
-app.use("/api/products", productRoutes)
+app.use("/api/v1", productRoutes)
 
-app.listen(4000, () => {
-    console.log("server up and runging on port 4000!")
+app.listen(1600, () => {
+    console.log("server up and runging on port 1600!")
+    console.log("http://localhost:1600");
 })
