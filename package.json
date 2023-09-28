@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run start:local",
-    "start:local": "nodemon index.js"
+    "start:local": "nodemon server.js"
   },
   "author": "",
   "license": "ISC",
