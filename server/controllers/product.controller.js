@@ -1,5 +1,5 @@
 const Product = require("../model/Product.model");
-const errorHelper = require('../utils/error-helper')
+// const errorHelper = require('../utils/error-helper')
 
 // Get All products
 const product_all = async (req, res) => {
