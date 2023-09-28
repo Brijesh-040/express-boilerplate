@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
+const dotenv = require('dotenv')
+dotenv.config()
 
 // Connect to the database
 const connectToDatabase = async () => {
   try {
-    mongoose.connect('mongodb://localhost/expres', {
+    mongoose.connect(process.env.DB, {
           useNewUrlParser: true,
           useUnifiedTopology: true,
       });
