@@ -1,8 +1,11 @@
+'use strict'
+
 const Product = require("../model/Product.model");
 // const errorHelper = require('../utils/error-helper')
 
 // Get All products
 const product_all = async (req, res) => {
+  const { body, auth } = req; 
   try {
     const limitValue = req.query.limit;
     const skipValue = limitValue;

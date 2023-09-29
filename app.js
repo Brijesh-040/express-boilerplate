@@ -6,6 +6,7 @@ app.use(cors())
 
 // Import routes
 const productRoutes = require("./server/routes/product.route")
+const userRoutes = require("./server/routes/user.route")
 
 // Middlewares
 app.use(express.json())
@@ -18,5 +19,6 @@ app.get('/',(request,res)=>{
 
 // Routes Middlewares
 app.use("/api/v1", productRoutes)
+app.use("/api/v1/user/", userRoutes)
 
 module.exports = app;
