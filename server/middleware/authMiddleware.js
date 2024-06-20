@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const UserModel = require("../model/user.model");
 
 // Middleware function for JWT authentication
 function authenticateToken(req, res, next) {
@@ -10,14 +11,20 @@ function authenticateToken(req, res, next) {
   }
 
   // Verify the token
-  jwt.verify(token, "b-mart-authorizeuser", (err, decoded) => {
+  jwt.verify(token, "boilerplate-authorizeuser", async (err, decoded) => {
+    console.log('decoded: ', decoded);
     if (err) {
-      return res.status(401).json({ message: 'Unauthorized - Invalid decod token' });
+      return res.status(401).json({ message: 'Unauthorized - Invalid token' });
     }
-
-    // Token is valid
-    req.auth = decoded; // You can store the decoded user information for later use
-    next(); // Continue to the next middleware or route handler
+    if(decoded.user) {
+      const user = await UserModel.findById(decoded.user._id);
+      if(!user) {
+        return res.status(401).json({ message: 'Unauthorized access' });
+      }
+      // Token is valid
+      req.auth = decoded; // You can store the decoded user information for later use
+      next(); // Continue to the next middleware or route handler
+    }
   });
 }
 

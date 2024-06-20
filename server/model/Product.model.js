@@ -9,6 +9,10 @@ const productSchema = new Schema(
       type: Types.String,
       required: true,
     },
+    name: {
+      type: Types.String,
+      default: null
+    },
     price: {
       type: Types.Number,
       required: true,
@@ -17,33 +21,17 @@ const productSchema = new Schema(
       type: Types.Mixed,
       default: null
     },
-    name: {
-      type: Types.String,
-      default: null
-    },
     description: {
       type: Types.String,
       default: null
     },
-    firstname: {
-      type: Types.String,
-      default: null
-    },
-    lastname: {
-      type: Types.String,
-      default: null
-    },
-    mobileno: {
-      type: Types.String,
-      default: null
-    },
-    address: {
-      type: Types.String,
-      default: null
-    },
-    create: {
+    quantity: {
       type: Types.Number,
       default: null
+    },
+    discount: {
+      type: Types.Number,
+      default: 0
     }
   },
   {
@@ -52,5 +40,13 @@ const productSchema = new Schema(
     versionKey: false
   }
 );
+
+productSchema.pre('save', async function (next) {
+  const product = this;
+  if(product.brand) {
+    product.brand = product.brand.toUpperCase()
+  }
+  next()
+})
 
 module.exports = mongoose.model(modelName, productSchema);

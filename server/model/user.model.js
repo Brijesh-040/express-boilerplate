@@ -1,9 +1,10 @@
 'use strict'
 
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-const Types = Schema.Types
-const modelName = 'users'
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const Types = Schema.Types;
+const modelName = 'users';
+const generalHelper = require('../utils/helperFunctions')
 
 const userSchema = new Schema(
   {
@@ -28,7 +29,7 @@ const userSchema = new Schema(
       required: true,
     },
     mobileNo: {
-      type: Types.Number,
+      type: Types.String,
       default: null
     },
     address: {
@@ -46,5 +47,19 @@ const userSchema = new Schema(
     versionKey: false
   }
 );
+
+userSchema.pre('save', async function (next) {
+  const user = this;
+  if (!!user.password && user.isNew) {
+    const passHash = await generalHelper.generateHash(user.password);
+    user.password = passHash.hash;
+    user.wasNew = true;
+  }
+  if (!!user.email) {
+    user.email = user.email.toLowerCase().trim();
+    user.userName = user.userName.trim();
+  }
+  next()
+})
 
 module.exports = mongoose.model(modelName, userSchema);

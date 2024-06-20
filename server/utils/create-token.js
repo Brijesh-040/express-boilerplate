@@ -3,7 +3,7 @@
 const Jwt = require('jsonwebtoken')
 // const errorHelper = require('./error-helper')
 
-function createToken(user, expirationPeriod) {
+function createToken(user, expirationPeriod = '24h') {
   try {
     let token = {}
 
@@ -18,7 +18,7 @@ function createToken(user, expirationPeriod) {
       {
         user: tokenUser
       },
-      "b-mart-authorizeuser",
+      'boilerplate-authorizeuser',
       {
         algorithm: 'HS256',
         expiresIn: expirationPeriod
@@ -28,7 +28,7 @@ function createToken(user, expirationPeriod) {
     return token
   } catch (err) {
     console.log('err: ', err);
-    // errorHelper.handleError(err)
+    throw err
   }
 }
 

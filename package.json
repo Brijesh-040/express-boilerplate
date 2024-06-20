@@ -1,13 +1,13 @@
 {
-  "name": "node",
+  "name": "express-boilerplate",
   "version": "1.0.1",
-  "description": "",
+  "description": "express boilerplate for beginners in NodeJS",
   "main": "server.js",
   "scripts": {
     "start": "npm run start:local",
     "start:local": "nodemon server.js"
   },
-  "author": "",
+  "author": "lakhani.brijesh376@gmail.com",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -18,7 +18,8 @@
     "express-fileupload": "^1.4.1",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.3",
-    "multer": "1.4.5-lts.1"
+    "multer": "1.4.5-lts.1",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"

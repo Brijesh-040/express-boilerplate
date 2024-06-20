@@ -35,15 +35,7 @@ const product_details = async (req, res) => {
 
 // Add New product
 const product_create = async (req, res) => {
-  const product = new Product({
-    brand: req.body.brand,
-    create: 1,
-    price: req.body.price,
-    image: req.body.image,
-    name: req.body.name,
-    description: req.body.description
-  });
-
+  const product = new Product(req.body)
   try {
     const savedProduct = await product.save();
     res.send(savedProduct);

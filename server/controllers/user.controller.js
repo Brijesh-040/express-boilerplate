@@ -30,27 +30,16 @@ const signUp = async (req, res) => {
         if (signUpData.length && signUpData) {
             res.status(400).send("userName or email is all ready Exists.....!");
         } else {
-            const saltRounds = 10;
-            bcrypt.hash(body.password, saltRounds, async (err, hash) => {
-                if (err) {
-                    res.status(400).send("Password Must be Strong!!!");
-                } else {
-                    const user = await UserModel.create({
-                        firstName: body.firstName,
-                        lastName: body.lastName,
-                        email: body.email,
-                        userName: body.userName,
-                        address: body.address,
-                        mobileNo: body.mobileNo,
-                        password: hash,
-                    });
-                }
-            });
-            res.json({
-                statusCode: 200,
-                status: 'success',
-                message: 'Congratulations, your account has been successfully created.',
-            })
+            const user = await UserModel.create(body);
+            if(user) {
+                res.json({
+                    statusCode: 201,
+                    status: 'success',
+                    message: 'Congratulations, your account has been successfully created.',
+                })
+            } else {
+                res.status(400).send("Unable to create user. Please double-check your details and try again.");
+            }
         }
     } catch (error) {
         res.status(400).send(error);
