@@ -19,6 +19,6 @@ app.get('/',(request,res)=>{
 
 // Routes Middlewares
 app.use("/api/v1", productRoutes)
-app.use("/api/v1/user/", userRoutes)
+app.use("/api/v1", userRoutes)
 
 module.exports = app;

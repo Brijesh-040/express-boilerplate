@@ -11,6 +11,7 @@ function createToken(user, expirationPeriod = '24h') {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      role: user.role,
       _id: user._id
     }
 

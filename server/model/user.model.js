@@ -39,6 +39,23 @@ const userSchema = new Schema(
     password: {
       type: Types.String,
       required: true,
+    },
+    role: {
+      type: Types.String,
+      enum: ['user', 'admin'],
+      default: 'user'
+    },
+    isActive: {
+      type: Types.Boolean,
+      default: true
+    },
+    isDeleted: {
+      type: Types.Boolean,
+      default: false
+    },
+    oldPassword: {
+      type: Types.String,
+      default: null
     }
   },
   {
