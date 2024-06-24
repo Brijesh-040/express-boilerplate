@@ -31,5 +31,5 @@ $ npm run start:local
 Visit our <a href="https://documenter.getpostman.com/view/25536329/2sA3XWeKUu" target="_blank"> API Documentation </a> for more details.
 
 -----
-https://readme-typing-svg.herokuapp.com/?font=Ubuntu&color=%230EAA20&vCenter=true&lines=Thanks+for+visiting!+You%27re+welcome!
+[![typing SVG](https://readme-typing-svg.herokuapp.com/?font=Ubuntu&color=%230EAA20&vCenter=true&lines=Thanks+for+visiting!+You%27re+welcome!)](https://git.io/typing-svg)
 -----
