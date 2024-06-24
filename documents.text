@@ -1,41 +1,16 @@
-### GET ALL PRODUCTS
-GET http://localhost:1600/api/v1/productList HTTP/1.1
+## Documentaion:
+https://documenter.getpostman.com/view/25536329/2sA3XWeKUu
 
-### GET SINGLE PRODUCT
-GET http://localhost:1600/api/v1/product/:productId HTTP/1.1
+## Testing On Postman
 
-### ADD ITEM
-POST http://localhost:1600/api/v1/add HTTP/1.1
-Content-Type: application/json
+http://localhost:1600/api/v1/user/signUp  => signUp user
+http://localhost:1600/api/v1/user/signIn  => signIn user
 
-{
-  "title": "MEAN",
-  "price": "RS. 4,80,00,000",
-  "image": "https://upload.wikimedia.org/wikipedia/commons/b/b1/Meanstack-624x250.jpg",
-  "details": "The MEAN stack is a JavaScript-based framework for developing web applications. MEAN is named after MongoDB, Express, Angular, and Node, the four key technologies that make up the layers of the stack."
-}
+user:
+http://localhost:1600/api/v1/user  => get user details
+http://localhost:1600/api/v1/update  => update user details
+http://localhost:1600/api/v1/changePassword  => update user password with old password|
 
-### DELETE ITEM
-DELETE http://localhost:1600/api/v1/product/:productId HTTP/1.1
-
-### UPDATE ITEM
-PUT http://localhost:1600/api/v1/product/:productId HTTP/1.1
-Content-Type: application/json
-
-{
-  "title": "Updated product title"
-}
-
-### buy product
-POST http://localhost:4000/api/v1/buy HTTP/1.1
-Content-Type: application/json
-
-{
-"title":"Techivies",
-"price":"6,80,000,00",
-"image":"https://media.licdn.com/dms/image/C560BAQHHW_2sUi7BLw/company-logo_200…",
-"firstname":"Ravi",
-"lastname":"Patel",
-"mobileno":"6351181580",
-"address":"Khalilpur, Junagadh"
-} 
+admin:
+http://localhost:1600/api/v1/activate  =>  active user account by userId
+http://localhost:1600/api/v1/getAll?isActive=true  =>  get all user list
