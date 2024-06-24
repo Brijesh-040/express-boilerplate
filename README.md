@@ -4,7 +4,7 @@ This README provides the necessary steps to get your application up and running.
 
 ## Setup Instructions
 
-After cloning this project to your computer, follow these steps to install the project:
+After cloning this project to your computer, follow these steps to install the project
 
 1. Convert your env-example file to a .env file.
 
