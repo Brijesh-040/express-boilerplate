@@ -8,7 +8,7 @@ After cloning this project to your computer, follow these steps to install the p
 
 1. Convert your env-example file to a .env file.
 
-2. Install the necessary packages by running the following command:
+2. Install the necessary packages by running the following command
 
 ------
 $ npm install
