@@ -7,13 +7,13 @@ const authenticateToken = async (req, res, next) => {
   const token = req.header('Authorization');
 
   if (!token) {
-    return res.status(401).json({ message: 'Unauthorized - Missing token' });
+    return res.status(401).json({ message: 'Access Denied. No token provided.' });
   }
 
   // Verify the token
   jwt.verify(token, "boilerplate-authorizeuser", (err, decoded) => {
     if (err) {
-      return res.status(401).json({ message: 'Unauthorized - Invalid token' });
+      return res.status(403).json({ message: 'Unauthorized - Invalid token.' });
     }
     if (decoded.user) {
       // Token is valid
@@ -24,23 +24,26 @@ const authenticateToken = async (req, res, next) => {
   // Continue to the next middleware or route handler
 }
 
+// Middleware for user authentication
 const authorizeuser = async (req, res, next) => {
   const user = await UserModel.findById(req.auth.user._id);
   if (!user || user.isDeleted) {
-    return res.status(401).json({ message: 'Unauthorized access' });
+    return res.status(403).json({ message: 'user account associated with this request has been deleted. Please contact our support team' });
   }
   if (!user.isActive) {
-    return res.status(401).json({ message: 'user account has been deactivated - contact support team' });
+    return res.status(403).json({ message: 'user account has been deactivated. Please contact our support team' });
   }
   next()
 }
 
-// Middleware to check if user is admin
-function authorizeAdmin(req, res, next) {
-  if (req.auth.user.role !== 'admin') {
-    return res.sendStatus(403);
+// Middleware for Role-Based Access Control (RBAC)
+const authorizeRole = (roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.auth.user.role)) {
+      return res.sendStatus(403).json({ message: "Access Denied!" });
+    }
+    next();
   }
-  next();
 }
 
-module.exports = { authenticateToken, authorizeuser, authorizeAdmin };
+module.exports = { authenticateToken, authorizeRole };
