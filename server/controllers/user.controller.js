@@ -4,6 +4,7 @@ const UserModel = require("../model/user.model");
 const bcrypt = require('bcryptjs');
 const token = require('../utils/create-token');
 const generalHelper = require('../utils/helperFunctions')
+const cloudinaryHelper = require('../utils/cloudinaryHelper')
 
 // signUp user
 const signUp = async (req, res) => {
@@ -167,11 +168,30 @@ const changePassword = async (req, res) => {
     }
 };
 
+// upload profile image
+const uploadImage = async (req, res) => {
+    const { file, auth } = req;
+    try {
+        let upload = await cloudinaryHelper.fileUpload(file);
+        if (upload.success) {
+            const user = await UserModel.findById(auth.user._id);
+            user.image = upload;
+            user.save();
+            res.status(200).json({ message: "Profile Image has been successfully update." })
+        } else {
+            res.send(400).json({ message: "Failed to update profile image. Please try again later." })
+        }
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+
 module.exports = {
     signUp,
     signIn,
     getUser,
     updateUser,
+    uploadImage,
     getAll,
     activateUser,
     changePassword

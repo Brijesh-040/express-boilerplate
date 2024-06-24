@@ -6,6 +6,27 @@ const Types = Schema.Types;
 const modelName = 'users';
 const generalHelper = require('../utils/helperFunctions')
 
+const imageSchema = new Schema(
+  {
+    fileName: {
+      type: Types.String,
+      default: null
+    },
+    fileType: {
+      type: Types.String,
+      default: null
+    },
+    url: {
+      type: Types.String,
+      default: null
+    },
+  },
+  {
+    _id: false,
+    id: false
+  }
+)
+
 const userSchema = new Schema(
   {
     firstName: {
@@ -16,10 +37,10 @@ const userSchema = new Schema(
       type: Types.String,
       required: true,
     },
-    // image: {
-    //   type: Types.Mixed,
-    //   default: null
-    // },
+    image: {
+      type: imageSchema,
+      default: null
+    },
     userName: {
       type: Types.String,
       required: true,
