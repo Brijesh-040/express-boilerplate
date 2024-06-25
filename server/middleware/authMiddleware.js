@@ -26,6 +26,7 @@ const authenticateToken = async (req, res, next) => {
 
 // Middleware for user authentication
 const authorizeuser = async (req, res, next) => {
+  // console.log('body/payload: ', req.body);
   const user = await UserModel.findById(req.auth.user._id);
   if (!user || user.isDeleted) {
     return res.status(403).json({ message: 'user account associated with this request has been deleted. Please contact our support team' });

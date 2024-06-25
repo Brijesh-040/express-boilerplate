@@ -36,12 +36,12 @@ const signIn = async (req, res) => {
     const { body } = req;
     try {
         const getUser = await UserModel.findOne({
-            $or: [{ userName: body.email }, { email: body.email }],
+            $or: [{ userName: body.userName }, { email: body.userName }],
         });
         if (getUser != null) {
             if (
-                getUser.userName == body.email ||
-                getUser.email == body.email
+                getUser.userName == body.userName ||
+                getUser.email == body.userName
             ) {
                 const isMatch = await bcrypt.compare(
                     body.password,
@@ -175,6 +175,9 @@ const uploadImage = async (req, res) => {
         let upload = await cloudinaryHelper.fileUpload(file);
         if (upload.success) {
             const user = await UserModel.findById(auth.user._id);
+            if (user.image && user.image.fileName) {
+                await cloudinaryHelper.deleteFile(user.image.fileName)
+            }
             user.image = upload;
             user.save();
             res.status(200).json({ message: "Profile Image has been successfully update." })

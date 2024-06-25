@@ -1,14 +1,14 @@
-function validateUser(req, res, next) {
-    // Validate user input
-    // ...
-  
-    if (validatehere) { //validation condition here
-      res.status(400).json({ message: 'Validation failed' });
-    } else {
-      next();
+const Joi = require('joi')
+
+const validate = (schema, property) => {
+  return (req, res, next) => {
+    const { error } = schema.validate(req[property]);
+    if (error) {
+      // console.log('error: ', error);
+      return res.status(400).send(error.details[0].message);
     }
-  }
-  
-  module.exports = {
-    validateUser,
+    next();
   };
+};
+
+module.exports = validate;
